@@ -34,12 +34,12 @@ createGUI:
     global ASH_Input_Box
     global ASH_Input_List_Index
     Gui, ASH:New,,Autohotkey SHell
-    Gui, ASH:Add, Edit, r1 vASH_Input_Box gASH_Input_Change,
+    Gui, ASH:Add, Edit, r1 vASH_Input_Box gASH_Input_Box_Change,
     Gui, ASH:Add, ListBox, r5 vASH_Input_List_Index +AltSubmit, %CommandArrayString%
     GuiControl, Choose, ASH_Input_List_Index, 1
     return
 
-ASH_Input_Change:
+ASH_Input_Box_Change:
     GuiControlGet, ASH_Input_Box, ASH:
     GuiControl, ChooseString, ASH_Input_List_Index, %ASH_Input_Box%
     return
@@ -86,6 +86,6 @@ NumLock::
 ; Show GUI
 NumpadIns::
     GuiControl, ASH:Choose, ASH_Input_List_Index, 1
-    GuiControl, ASH:Text, ASH_Input, 
+    GuiControl, ASH:Text, ASH_Input_Box, 
     Gui, ASH:Show,,
     return
