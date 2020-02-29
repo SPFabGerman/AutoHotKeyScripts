@@ -2,10 +2,9 @@
 createGUI(){
     global ASH_Input_Box
     global ASH_Input_List_Index
-    global ASH_Finished = 0
-    global ASH_Cancel = 0
+    global ASH_Cancel = 1
 
-    Gui, ASH:New,,Autohotkey SHell
+    Gui, ASH:New, +ToolWindow -Border,Autohotkey SHell
     Gui, ASH:Add, Edit, r1 vASH_Input_Box gASH_Input_Box_Change,
     Gui, ASH:Add, ListBox, r5 vASH_Input_List_Index +AltSubmit,
     GuiControl, ASH:Choose, ASH_Input_List_Index, 10
@@ -27,7 +26,6 @@ ASH_Input_Box_Change:
 Enter::
     Gui, ASH:Submit
     ASH_Cancel = 0
-    ASH_Finished = 1
     return
 
 Down::
@@ -50,7 +48,6 @@ Tab::return
 Escape::
     Gui, ASH:Hide
     ASH_Cancel = 1
-    ASH_Finished = 1
     return
 
 #IfWinActive
@@ -58,7 +55,6 @@ Escape::
 showGUI(CommandArray){
     global ASH_Input_Box
     global ASH_Input_List_Index
-    global ASH_Finished
     global ASH_Cancel
 
     GuiControl, ASH:Text, ASH_Input_Box, 
@@ -67,13 +63,12 @@ showGUI(CommandArray){
     GuiControl, ASH:, ASH_Input_List_Index, %CommandArrayString%
     GuiControl, ASH:Choose, ASH_Input_List_Index, 1
 
-    ASH_Finished = 0
-    ASH_Cancel = 0
+    ASH_Cancel = 1
 
     Gui, ASH:Show,,
 
-    While !ASH_Finished
-        Sleep 100
+    WinWaitNotActive, Autohotkey SHell
+    Gui, ASH:Hide
     
     if (ASH_Cancel){
         return ""
