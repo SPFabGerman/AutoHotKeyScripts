@@ -2,7 +2,7 @@
 
 initCommands:
     ; === Add Commands Here === 
-    global CommandArray := ["reload", "stop", "help", "edit", "launch"]
+    global CommandArray := [" ", "reload", "stop", "help", "edit", "launch"]
     CommandArray := sortArray(CommandArray)
     global CommandCount := CommandArray.MaxIndex()
     global commandArrayString := Join("|", CommandArray*)
