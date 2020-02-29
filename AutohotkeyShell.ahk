@@ -15,6 +15,12 @@ createGUI(){
 ASH_Input_Box_Change:
     GuiControlGet, ASH_Input_Box, ASH:
     GuiControl, ASH:ChooseString, ASH_Input_List_Index, %ASH_Input_Box%
+
+    ; Make more replacements, so that the selection is now not at the top
+    GuiControlGet, curIndex, ASH:, ASH_Input_List_Index,
+    GuiControl, ASH:Choose, ASH_Input_List_Index, % curIndex+3
+    GuiControl, ASH:Choose, ASH_Input_List_Index, % curIndex
+
     return
 
 #IfWinActive, Autohotkey SHell
@@ -27,9 +33,6 @@ Enter::
 Down::
     GuiControlGet, curIndex, ASH:, ASH_Input_List_Index,
     curIndex := curIndex + 1
-    if (curIndex > CommandCount){
-        curIndex := CommandCount
-    }
     GuiControl, ASH:Choose, ASH_Input_List_Index, %curIndex%
     return
 
